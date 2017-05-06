@@ -36,30 +36,30 @@ impl BitSet {
 
 // Public functions
 impl BitSet {
-	/// Create a new BitSet with *ZERO* bit.
-	///
-	/// # Example
-	///
-	/// ```
-	/// use bitset::BitSet;
-	/// ...
-	/// 	let bs = BitSet::new();
-	/// ```
+    /// Create a new BitSet with *ZERO* bit.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use bitset::BitSet;
+    /// ...
+    /// 	let bs = BitSet::new();
+    /// ```
     pub fn new() -> Self {
         Self::default()
     }
 
-	/// Create a new BitSet with `nbits` bits with all bit initialized by `0`.
-	///
-	/// # Arguments
-	///
-	/// * `nbits` - A integer, which value is the bits count `BitSet` will hold.
-	///
-	/// # Example
-	///
-	/// ```
-	/// let bs = BitSet::with_capacity(100);
-	/// ```
+    /// Create a new BitSet with `nbits` bits with all bit initialized by `0`.
+    ///
+    /// # Arguments
+    ///
+    /// * `nbits` - A integer, which value is the bits count `BitSet` will hold.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let bs = BitSet::with_capacity(100);
+    /// ```
     pub fn with_capacity(nbits: usize) -> Self {
         let mut bitset = BitSet {
             bits: Vec::new(),
@@ -71,52 +71,52 @@ impl BitSet {
         bitset
     }
 
-	/// Return the actual bits count.
-	///
-	/// # Example
-	///
-	/// ```
-	/// let bs = BitSet::with_capacity(100);
-	/// assert!(bs.size() == 100);
-	/// ```
+    /// Return the actual bits count.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let bs = BitSet::with_capacity(100);
+    /// assert!(bs.size() == 100);
+    /// ```
     pub fn size(&self) -> usize {
         self.nbits
     }
 
-	/// Return the count of `1`.
-	///
-	/// # Example
-	///
-	/// ```
-	/// let bs = BitSet::with_capacity(100);
-	/// assert!(bs.count() == 0);
-	/// ```
+    /// Return the count of `1`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let bs = BitSet::with_capacity(100);
+    /// assert!(bs.count() == 0);
+    /// ```
     pub fn count(&self) -> u64 {
         (0..self.blocks()).map(|n| bit_count64(self.bits[n]))
                                 .fold(0, |sum, i| sum + i)
     }
 
-	/// Return if the given bit index has been set to `1`.
-	///
-	/// # Example
-	///
-	/// ```
-	/// let bs = BitSet::with_capacity(100);
-	/// assert!(bs.test(99) == false);
-	/// ```
+    /// Return if the given bit index has been set to `1`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let bs = BitSet::with_capacity(100);
+    /// assert!(bs.test(99) == false);
+    /// ```
     pub fn test(&self, bit_idx: usize) -> bool {
         let (block_idx, mod_bit_idx) = (bit_idx / 64, bit_idx % 64);
         let n: u64 = self.bits[block_idx];
         (n >> mod_bit_idx) & 0x1 == 0x1
     }
 
-	/// Return if there is one bit has been set to `1` in the whole bitset..
-	///
-	/// # Example
-	/// ```
-	/// let bs = BitSet::with_capacity(100);
-	/// assert!(bs.any() == false);
-	/// ```
+    /// Return if there is one bit has been set to `1` in the whole bitset..
+    ///
+    /// # Example
+    /// ```
+    /// let bs = BitSet::with_capacity(100);
+    /// assert!(bs.any() == false);
+    /// ```
     pub fn any(&self) -> bool {
         for i in 0..self.blocks() {
             if self.bits[i] != 0 {
@@ -126,13 +126,13 @@ impl BitSet {
         false
     }
 
-	/// Return if all bits are set to `0`.
-	///
-	/// # Example
-	/// ```
-	/// let bs = BitSet::with_capacity(100);
-	/// assert!(bs.none() == true);
-	/// ```
+    /// Return if all bits are set to `0`.
+    ///
+    /// # Example
+    /// ```
+    /// let bs = BitSet::with_capacity(100);
+    /// assert!(bs.none() == true);
+    /// ```
     pub fn none(&self) -> bool {
         !self.any()
     }
@@ -147,20 +147,20 @@ impl BitSet {
     // }
 
     // bit operations
-	/// Set the bit specified by `bit_idx` to `v`, which is `true` or `false`.
-	///
-	/// # Arguments
-	///
-	/// * `bit_idx` - the bit index we want to set.
-	/// * `v` - the value we want to set. `true` or `false`.
-	///
-	/// # Example
-	///
-	/// ```
-	/// let bs = BitSet::with_capacity(100);
-	/// bs.set(99, true);
-	/// assert!(bs.test(99) == true);
-	/// ```
+    /// Set the bit specified by `bit_idx` to `v`, which is `true` or `false`.
+    ///
+    /// # Arguments
+    ///
+    /// * `bit_idx` - the bit index we want to set.
+    /// * `v` - the value we want to set. `true` or `false`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let bs = BitSet::with_capacity(100);
+    /// bs.set(99, true);
+    /// assert!(bs.test(99) == true);
+    /// ```
     pub fn set(&mut self, bit_idx: usize, v: bool) {
         let (block_idx, mod_bit_idx) = (bit_idx / 64, bit_idx % 64);
         if let Some(n) = self.bits.get_mut(block_idx) {
@@ -173,39 +173,39 @@ impl BitSet {
         }
     }
 
-	/// Reset all bits to `0`.
-	///
-	/// # Example
-	///
-	/// ```
-	/// let bs = BitSet::with_capacity(100);
-	/// bs.set(99, true);
-	/// assert!(bs.test(99) == true);
-	/// bs.reset();
-	/// assert!(bs.test(99) == false);
-	/// ```
+    /// Reset all bits to `0`.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let bs = BitSet::with_capacity(100);
+    /// bs.set(99, true);
+    /// assert!(bs.test(99) == true);
+    /// bs.reset();
+    /// assert!(bs.test(99) == false);
+    /// ```
     pub fn reset(&mut self) {
         for i in 0..self.blocks() {
             self.bits[i] = 0;
         }
     }
 
-	/// Flip the bit specified by `bit_idx` to the reverse value.
-	/// If the bit value is `true`, then it will be flipped to `false`.
-	/// The other case is like the same.
-	///
-	/// # Arguments
-	///
-	/// `bit_idx` - the index of the bit we want to flip.
-	///
-	/// # Example
-	///
-	/// ```
-	/// let bs = BitSet::with_capacity(100);
-	/// assert!(bs.test(99) == false);
-	/// bs.flip(99);
-	/// assert!(bs.test(99) == true);
-	/// ```
+    /// Flip the bit specified by `bit_idx` to the reverse value.
+    /// If the bit value is `true`, then it will be flipped to `false`.
+    /// The other case is like the same.
+    ///
+    /// # Arguments
+    ///
+    /// `bit_idx` - the index of the bit we want to flip.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let bs = BitSet::with_capacity(100);
+    /// assert!(bs.test(99) == false);
+    /// bs.flip(99);
+    /// assert!(bs.test(99) == true);
+    /// ```
     pub fn flip(&mut self, bit_idx: usize) {
         let (block_idx, mod_bit_idx) = (bit_idx / 64, bit_idx % 64);
         if let Some(n) = self.bits.get_mut(block_idx) {
@@ -218,21 +218,21 @@ impl BitSet {
         }
     }
 
-	/// Flip all bits in the bitset. It may run time-costly.
-	///
-	/// # Example
-	///
-	/// ```
-	/// let bs = BitSet::with_capacity(100);
+    /// Flip all bits in the bitset. It may run time-costly.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// let bs = BitSet::with_capacity(100);
     /// bitset.flip_all();
-	/// for i in 0..100 {
+    /// for i in 0..100 {
     ///     assert!(bitset.test(i) == true);
     /// }
     /// bitset.flip_all();
     /// for i in 0..100 {
     ///     assert!(bitset.test(i) == false);
     /// }
-	/// ```
+    /// ```
     pub fn flip_all(&mut self) {
         for i in 0..self.blocks() {
             self.bits[i] = !self.bits[i];
