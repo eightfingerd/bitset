@@ -42,8 +42,8 @@ impl BitSet {
     ///
     /// ```
     /// use bitset::BitSet;
-    /// ...
-    /// 	let bs = BitSet::new();
+    ///
+    /// let bs = BitSet::new();
     /// ```
     pub fn new() -> Self {
         Self::default()
@@ -58,6 +58,8 @@ impl BitSet {
     /// # Example
     ///
     /// ```
+    /// use bitset::BitSet;
+    ///
     /// let bs = BitSet::with_capacity(100);
     /// ```
     pub fn with_capacity(nbits: usize) -> Self {
@@ -76,6 +78,8 @@ impl BitSet {
     /// # Example
     ///
     /// ```
+    /// use bitset::BitSet;
+	/// 
     /// let bs = BitSet::with_capacity(100);
     /// assert!(bs.size() == 100);
     /// ```
@@ -88,6 +92,8 @@ impl BitSet {
     /// # Example
     ///
     /// ```
+    /// use bitset::BitSet;
+    ///
     /// let bs = BitSet::with_capacity(100);
     /// assert!(bs.count() == 0);
     /// ```
@@ -101,6 +107,8 @@ impl BitSet {
     /// # Example
     ///
     /// ```
+    /// use bitset::BitSet;
+    ///
     /// let bs = BitSet::with_capacity(100);
     /// assert!(bs.test(99) == false);
     /// ```
@@ -114,6 +122,8 @@ impl BitSet {
     ///
     /// # Example
     /// ```
+    /// use bitset::BitSet;
+    ///
     /// let bs = BitSet::with_capacity(100);
     /// assert!(bs.any() == false);
     /// ```
@@ -130,6 +140,8 @@ impl BitSet {
     ///
     /// # Example
     /// ```
+    /// use bitset::BitSet;
+    ///
     /// let bs = BitSet::with_capacity(100);
     /// assert!(bs.none() == true);
     /// ```
@@ -157,7 +169,9 @@ impl BitSet {
     /// # Example
     ///
     /// ```
-    /// let bs = BitSet::with_capacity(100);
+    /// use bitset::BitSet;
+    ///
+    /// let mut bs = BitSet::with_capacity(100);
     /// bs.set(99, true);
     /// assert!(bs.test(99) == true);
     /// ```
@@ -178,7 +192,9 @@ impl BitSet {
     /// # Example
     ///
     /// ```
-    /// let bs = BitSet::with_capacity(100);
+    /// use bitset::BitSet;
+    ///
+    /// let mut bs = BitSet::with_capacity(100);
     /// bs.set(99, true);
     /// assert!(bs.test(99) == true);
     /// bs.reset();
@@ -201,7 +217,9 @@ impl BitSet {
     /// # Example
     ///
     /// ```
-    /// let bs = BitSet::with_capacity(100);
+    /// use bitset::BitSet;
+    ///
+    /// let mut bs = BitSet::with_capacity(100);
     /// assert!(bs.test(99) == false);
     /// bs.flip(99);
     /// assert!(bs.test(99) == true);
@@ -223,14 +241,16 @@ impl BitSet {
     /// # Example
     ///
     /// ```
-    /// let bs = BitSet::with_capacity(100);
-    /// bitset.flip_all();
+    /// use bitset::BitSet;
+    ///
+    /// let mut bs = BitSet::with_capacity(100);
+    /// bs.flip_all();
     /// for i in 0..100 {
-    ///     assert!(bitset.test(i) == true);
+    ///     assert!(bs.test(i) == true);
     /// }
-    /// bitset.flip_all();
+    /// bs.flip_all();
     /// for i in 0..100 {
-    ///     assert!(bitset.test(i) == false);
+    ///     assert!(bs.test(i) == false);
     /// }
     /// ```
     pub fn flip_all(&mut self) {
