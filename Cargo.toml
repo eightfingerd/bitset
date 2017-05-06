@@ -1,0 +1,12 @@
+[package]
+name = "bitset"
+version = "0.1.0"
+authors = ["eightfingerd <eightfingerd@gmail.com>"]
+description = "A simple bitset library like C++ (interface adapted)."
+repository = "https://github.com/eightfingerd/bitset"
+keywords = ["bitset"]
+travis-ci = { repository = "https://github.com/eightfingerd/bitset", branch = "master" }
+appveyor = { repository = "https://github.com/eightfingerd/bitset", branch = "master", service = "github" }
+license = "MIT/Apache-2.0"
+
+[dependencies]
