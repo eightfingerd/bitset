@@ -73,13 +73,58 @@ impl BitSet {
         bitset
     }
 
+    /// Create a new BitSet from a `u64` value, and initialize all bits by `0`.
+    ///
+    /// # Arguments
+    ///
+    /// * `v` - A `u64` value.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use bitset::BitSet;
+    ///
+    /// let bs = BitSet::from_u64(2);
+    /// assert!(bs.test(0) == false);
+    /// assert!(bs.test(1) == true);
+    /// ```
+    pub fn from_u64(v: u64) -> Self {
+        BitSet {
+            bits: vec![v],
+            nbits: 64
+        }
+    }
+
+    /// Create a new BitSet from a `u64` `vec`, and initialize all bits by `0`.
+    ///
+    /// # Arguments
+    ///
+    /// * `vec` - A `u64` vector.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use bitset::BitSet;
+    ///
+    /// let vec = vec![u64::max_value(), 0, u64::max_value()];
+    /// let bs = BitSet::from_vec64(&vec);
+    /// assert!(bs.test(63) == true);
+    /// assert!(bs.test(64) == false);
+    /// ```
+    pub fn from_vec64(vec: &Vec<u64>) -> Self {
+        BitSet {
+            bits: vec.to_vec(),
+            nbits: vec.len() * 64
+        }
+    }
+
     /// Return the actual bits count.
     ///
     /// # Example
     ///
     /// ```
     /// use bitset::BitSet;
-	/// 
+    /// 
     /// let bs = BitSet::with_capacity(100);
     /// assert!(bs.size() == 100);
     /// ```
